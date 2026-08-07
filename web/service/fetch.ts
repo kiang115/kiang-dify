@@ -14,6 +14,7 @@ import {
   PUBLIC_API_PREFIX,
   WEB_APP_SHARE_CODE_HEADER_NAME,
 } from '@/config'
+import { basePath } from '@/utils/var'
 import { getWebAppAccessToken, getWebAppPassport } from './webapp-auth'
 
 const TIME_OUT = 100000
@@ -80,7 +81,7 @@ const afterResponseErrorCode = (otherOptions: IOtherOptions): AfterResponseHook 
       if (shouldNotifyError && errorMessage) toast.error(errorMessage)
 
       if (response.status === 403 && errorData?.code === 'already_setup')
-        globalThis.location.href = `${globalThis.location.origin}/signin`
+        globalThis.location.href = `${globalThis.location.origin}${basePath}/signin`
     }
   }
 }

@@ -15,8 +15,9 @@
 
 import Cookies from 'js-cookie'
 import { CSRF_COOKIE_NAME, CSRF_HEADER_NAME } from '@/config'
+import { basePath } from '@/utils/var'
 
-const DEVICE_BASE = '/openapi/v1/oauth/device'
+const DEVICE_BASE = `${basePath}/openapi/v1/oauth/device`
 
 // Typed error thrown by every wrapper here. The page/component layer
 // switches on `code` to choose user-facing copy / view; never render

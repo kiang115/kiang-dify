@@ -2,6 +2,7 @@ import type { Socket } from 'socket.io-client'
 import type { DebugInfo, WebSocketConfig } from '../types/websocket'
 import { io } from 'socket.io-client'
 import { SOCKET_URL } from '@/config'
+import { basePath } from '@/utils/var'
 
 type AckArgs = unknown[]
 
@@ -71,7 +72,7 @@ export class WebSocketClient {
       transports: WebSocketConfig['transports']
       withCredentials?: boolean
     } = {
-      path: '/socket.io',
+      path: `${basePath}/socket.io`,
       transports: this.transports,
       withCredentials: this.withCredentials,
     }

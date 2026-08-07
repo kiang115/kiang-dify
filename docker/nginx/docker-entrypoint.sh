@@ -2,6 +2,26 @@
 
 HTTPS_CONFIG=''
 
+DIFY_BASE_PATH=${DIFY_BASE_PATH:-}
+case "${DIFY_BASE_PATH}" in
+    "")
+        BASE_PATH_EXACT_LOCATION=''
+        ;;
+    /*/)
+        echo "DIFY_BASE_PATH must not end with a slash: ${DIFY_BASE_PATH}" >&2
+        exit 1
+        ;;
+    /*)
+        BASE_PATH_EXACT_LOCATION="location = ${DIFY_BASE_PATH} { proxy_pass http://web:3000; include proxy.conf; }"
+        ;;
+    *)
+        echo "DIFY_BASE_PATH must be empty or start with a slash: ${DIFY_BASE_PATH}" >&2
+        exit 1
+        ;;
+esac
+export DIFY_BASE_PATH
+export BASE_PATH_EXACT_LOCATION
+
 if [ "${NGINX_HTTPS_ENABLED}" = "true" ]; then
     # Check if the certificate and key files for the specified domain exist
     if [ -n "${CERTBOT_DOMAIN}" ] && \
