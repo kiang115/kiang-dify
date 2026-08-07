@@ -1,4 +1,5 @@
 import type { SlashCommandHandler } from './types'
+import { basePath } from '@/utils/var'
 import { registerCommands, unregisterCommands } from './command-bus'
 
 const NAV_ITEMS = [
@@ -41,7 +42,7 @@ export const goCommand: SlashCommandHandler = {
   register() {
     registerCommands({
       'navigation.go': async (args) => {
-        if (args?.path) window.location.href = args.path
+        if (args?.path) window.location.href = `${basePath}${args.path}`
       },
     })
   },

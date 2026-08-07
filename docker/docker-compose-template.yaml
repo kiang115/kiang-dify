@@ -397,6 +397,7 @@ services:
       CONSOLE_API_URL: ${CONSOLE_API_URL:-}
       SERVER_CONSOLE_API_URL: ${SERVER_CONSOLE_API_URL:-http://api:5001}
       APP_API_URL: ${APP_API_URL:-}
+      NEXT_PUBLIC_BASE_PATH: ${NEXT_PUBLIC_BASE_PATH:-}
       AMPLITUDE_API_KEY: ${AMPLITUDE_API_KEY:-}
       NEXT_PUBLIC_COOKIE_DOMAIN: ${NEXT_PUBLIC_COOKIE_DOMAIN:-}
       NEXT_PUBLIC_SOCKET_URL: ${NEXT_PUBLIC_SOCKET_URL:-ws://localhost}
@@ -794,6 +795,7 @@ services:
       ]
     environment:
       NGINX_SERVER_NAME: ${NGINX_SERVER_NAME:-_}
+      DIFY_BASE_PATH: ${DIFY_BASE_PATH:-}
       NGINX_HTTPS_ENABLED: ${NGINX_HTTPS_ENABLED:-false}
       NGINX_SSL_PORT: ${NGINX_SSL_PORT:-443}
       NGINX_PORT: ${NGINX_PORT:-80}
@@ -1302,6 +1304,8 @@ services:
       - ./volumes/unstructured:/app/data
 
 networks:
+  default:
+    driver: bridge
   # create a network between sandbox, api and ssrf_proxy, and can not access outside.
   ssrf_proxy_network:
     driver: bridge

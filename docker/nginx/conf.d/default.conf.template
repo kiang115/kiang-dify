@@ -4,17 +4,20 @@ server {
     listen ${NGINX_PORT};
     server_name ${NGINX_SERVER_NAME};
 
-    location /console/api {
+    location ${DIFY_BASE_PATH}/console/api {
+      rewrite ^${DIFY_BASE_PATH}(/.*)$ $1 break;
       proxy_pass http://api:5001;
       include proxy.conf;
     }
 
-    location /api {
+    location ${DIFY_BASE_PATH}/api {
+      rewrite ^${DIFY_BASE_PATH}(/.*)$ $1 break;
       proxy_pass http://api:5001;
       include proxy.conf;
     }
 
-    location /socket.io/ {
+    location ${DIFY_BASE_PATH}/socket.io/ {
+      rewrite ^${DIFY_BASE_PATH}(/.*)$ $1 break;
       resolver 127.0.0.11 valid=30s ipv6=off;
       set $socket_io_upstream ${NGINX_SOCKET_IO_UPSTREAM};
       proxy_pass http://$socket_io_upstream;
@@ -24,43 +27,51 @@ server {
       proxy_cache_bypass $http_upgrade;
     }
 
-    location /v1 {
+    location ${DIFY_BASE_PATH}/v1 {
+      rewrite ^${DIFY_BASE_PATH}(/.*)$ $1 break;
       proxy_pass http://api:5001;
       include proxy.conf;
     }
 
-    location /openapi {
+    location ${DIFY_BASE_PATH}/openapi {
+      rewrite ^${DIFY_BASE_PATH}(/.*)$ $1 break;
       proxy_pass http://api:5001;
       include proxy.conf;
     }
 
-    location /files {
+    location ${DIFY_BASE_PATH}/files {
+      rewrite ^${DIFY_BASE_PATH}(/.*)$ $1 break;
       proxy_pass http://api:5001;
       include proxy.conf;
     }
 
-    location /explore {
+    location ${DIFY_BASE_PATH}/explore {
       proxy_pass http://web:3000;
       include proxy.conf;
     }
 
-    location /e/ {
+    location ${DIFY_BASE_PATH}/e/ {
+      rewrite ^${DIFY_BASE_PATH}(/.*)$ $1 break;
       proxy_pass http://plugin_daemon:5002;
       proxy_set_header Dify-Hook-Url $scheme://$host$request_uri;
       include proxy.conf;
     }
 
-    location / {
+    ${BASE_PATH_EXACT_LOCATION}
+
+    location ${DIFY_BASE_PATH}/ {
       proxy_pass http://web:3000;
       include proxy.conf;
     }
 
-    location /mcp {
+    location ${DIFY_BASE_PATH}/mcp {
+      rewrite ^${DIFY_BASE_PATH}(/.*)$ $1 break;
       proxy_pass http://api:5001;
       include proxy.conf;
     }
 
-    location /triggers {
+    location ${DIFY_BASE_PATH}/triggers {
+      rewrite ^${DIFY_BASE_PATH}(/.*)$ $1 break;
       proxy_pass http://api:5001;
       include proxy.conf;
     }

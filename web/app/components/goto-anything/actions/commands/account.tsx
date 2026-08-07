@@ -1,5 +1,6 @@
 import type { SlashCommandHandler } from './types'
 import { getI18n } from 'react-i18next'
+import { basePath } from '@/utils/var'
 import { registerCommands, unregisterCommands } from './command-bus'
 
 // Account command dependency types - no external dependencies needed
@@ -15,7 +16,7 @@ export const accountCommand: SlashCommandHandler<AccountDeps> = {
 
   // Direct execution function
   execute: () => {
-    window.location.href = '/account'
+    window.location.href = `${basePath}/account`
   },
 
   search(args: string, locale: string = 'en') {
@@ -43,7 +44,7 @@ export const accountCommand: SlashCommandHandler<AccountDeps> = {
     registerCommands({
       'navigation.account': async (_args) => {
         // Navigate to account page
-        window.location.href = '/account'
+        window.location.href = `${basePath}/account`
       },
     })
   },

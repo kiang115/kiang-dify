@@ -5,6 +5,7 @@ import { Button } from '@langgenius/dify-ui/button'
 import { useTranslation } from 'react-i18next'
 import { setPostLoginRedirect } from '@/app/signin/utils/post-login-redirect'
 import { useRouter } from '@/next/navigation'
+import { basePath } from '@/utils/var'
 
 type Props = {
   userCode: string
@@ -34,7 +35,7 @@ const Chooser: FC<Props> = ({ userCode, ssoAvailable }) => {
   }
 
   const onSSO = () => {
-    window.location.href = `/openapi/v1/oauth/device/sso-initiate?user_code=${encodeURIComponent(userCode)}`
+    window.location.href = `${basePath}/openapi/v1/oauth/device/sso-initiate?user_code=${encodeURIComponent(userCode)}`
   }
 
   return (
